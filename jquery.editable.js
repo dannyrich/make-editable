@@ -68,16 +68,38 @@
     saveData: function() {
         var words = $.trim(this.$el.html()),
             field = this.$el.attr('data-fieldname'),
+            additionalargs = this.$el.attr('data-arguments'),
             that = this;
 
         if (words !== that.originalValue) {
 
+            var ajaxargs = $.extend({}, that.options.args, {
+                method: that.options.method,
+                value: words
+            });
+
+            if (field) {
+                ajaxargs = $.extend({}, ajaxargs, { field: field });
+            }
+
+            if (additionalargs) {
+                try {
+                    var tmp = $.parseJSON(additionalargs);
+
+                    ajaxargs = $.extend({}, ajaxargs, tmp);
+                }
+                catch(e) {
+                    console.log("Invalid JSON in data-arguments for this element:", this.$el);
+                }
+            }
+
             $.ajax({
                  url: that.options.url,
                  type: 'post',
-                 data: $.extend({}, that.options.args, { method: that.options.method, field: field, value: words }),
+                 data: ajaxargs,
                  dataType: 'json',
                  success: function(r) {
+
                     if (r.success) {
                         that.originalValue = words;
                         that.resetData();
@@ -134,7 +156,7 @@
 
         var that = this;
 
-        that.$alert.find('[data-html]').html(message);
+        that.$alert.find('.editable-alert-message').html(message);
         that.$alert.show();
 
         if (this.alertid) {
@@ -169,4 +191,3 @@ $.fn.editable = function (url, method, args) {
         }
     });
 };
-
