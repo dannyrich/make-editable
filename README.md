@@ -12,11 +12,21 @@
   2. *method*: the method to be called at the ajax url path
   3. *args*: any "global" default arguments to pass to every the ajax-called method
 
+Inside the editable element, pressing return or the element losing focus will send the data to the server. Pressing escape will revert the element's value to its initial state.
+
 ## Additional Options
 
 When the ajax call is made, it will send the value of the editable item as the argument `value` to the ajax method. Adding a `data-fieldname` attribute to the editable item will also send a `field` argument to the ajax method with that field name.
 
 Optionally, you can also include a `data-arguments` attribute with a JSON-encoded associative array of arguments to also pass to the ajax-called method.
+
+## AJAX Return
+
+The return from the ajax call should return a JSON-formatted associative array with the keys:
+  * *success*: a boolean value representing if the data was successfully received
+  * *message*: an optional message to show the user
+  
+  If `!success`, the element will be given the `editable-error` class, allowing for server-side validation.
 
 ## Example
 
