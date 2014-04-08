@@ -1,0 +1,30 @@
+.editable-element {
+	padding:5px;
+	border:1px solid transparent
+}
+.editable-element.editable-active {
+	background-color:#fff;
+	border-color:rgba(0,0,0,.2);
+	box-shadow:1px 1px 3px rgba(0,0,0,.5)
+}
+.editable-active.editable-error {
+	background-color:#F7DEDE;
+	color:#AF1A1A
+}
+.editable-alert {
+	display:none;
+	position:fixed;
+	bottom:15%;
+	left:0;
+	right:0;
+	text-align:center;
+}
+.editable-alert-message {
+	margin:0 auto;
+	max-width:400px;
+	height:auto;
+	background-color:rgba(0,0,0,.8);
+	color:white;
+	padding:1em;
+	border-radius:4px;
+}
